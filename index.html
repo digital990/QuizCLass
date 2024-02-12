@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="question"></ul>
+
+    <button>Submit</button>
+
+    <script>
+        async function fetchCoin() {
+            try {
+                const response = await fetch("https://opentdb.com/api.php?amount=10&type=boolean")
+                const data = await response.json()
+                console.log(data)
+                const question = data.results
+
+                for(let i =0; i < question.length; i++) {
+                    const questionContainer = document.getElementById("question") 
+                    let li = document.createElement('li')
+                    li.innerHTML =  `${question[i].question} <br /> <button>True</button> <button>False</button>`
+                    questionContainer.appendChild(li)
+                }
+            }
+            catch(error) {
+                console.error("Error in fetching ", error)
+            }
+    
+        }
+
+        fetchCoin()
+    </script>
+    
+</body>
+</html>
